@@ -1,0 +1,725 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f0f11;
+  --card-bg: #1a1a1e;
+  --text: #ffffff;
+  --text-muted: #888890;
+  --accent: #00ff88;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.bg-glow {
+  position: fixed;
+  top: -20vh;
+  left: -20vw;
+  width: 60vw;
+  height: 60vh;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 60%);
+  filter: blur(100px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1200px; /* Сделал чуть шире для двух колонок */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Header ---------- */
+.header {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo span { color: var(--accent); }
+
+.nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 24px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav a:hover { color: var(--accent); }
+
+/* ---------- Hero (Теперь в 2 колонки!) ---------- */
+.hero {
+  min-height: 85vh;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Текст чуть шире, чем код */
+  align-items: center;
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.hero__subtitle {
+  color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+
+.hero h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text);
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.socials {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  border: 1px solid #2a2a30;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+.btn-social:hover {
+  background: #2a2a30;
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.btn-social.primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+.btn-social.primary:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
+}
+
+/* ---------- Окно кода (Теперь справа) ---------- */
+.hero__visual {
+  position: relative;
+  /* Легкая анимация парения */
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+.editor-wrapper {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+.editor-header {
+  background: #161b22;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #30363d;
+  position: relative;
+}
+
+.editor-dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.editor-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #8b949e;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+}
+
+.editor-body {
+  padding: 20px;
+  min-height: 320px;
+}
+
+.code-text {
+  font-family: 'Courier New', Courier, monospace;
+  color: #c9d1d9;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  color: var(--accent);
+  font-weight: bold;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ---------- Бегущая строка ---------- */
+.marquee-container {
+  padding: 30px 0;
+  background: var(--card-bg);
+  border-top: 1px solid #2a2a30;
+  border-bottom: 1px solid #2a2a30;
+  overflow: hidden;
+  white-space: nowrap;
+  transform: rotate(-2deg) scale(1.05);
+  margin: 40px 0 80px;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: scroll 20s linear infinite;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.marquee-content span { color: var(--accent); margin: 0 20px; }
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ---------- Проекты (Сетка 2x2) ---------- */
+.projects-section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+  gap: 30px;
+}
+
+/* Карточка проекта */
+.project-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid #2a2a30;
+  border-radius: 24px;
+  padding: 40px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  min-height: 350px; /* Делаем их квадратными и большими */
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Большая цифра на фоне */
+.project-number {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03); /* Еле заметная */
+  font-family: 'Space Grotesk', sans-serif;
+  transition: color 0.4s;
+}
+
+.project-card:hover .project-number {
+  color: rgba(0, 255, 136, 0.1);
+}
+
+.project-info {
+  position: relative;
+  z-index: 2;
+}
+
+.project-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  transition: color 0.3s;
+}
+
+.project-card:hover .project-info h3 {
+  color: var(--accent);
+}
+
+.project-info p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Мини-макет сайта внутри карточки */
+.project-mockup {
+  margin-top: 30px;
+  height: 120px;
+  background: #111;
+  border-radius: 12px;
+  border: 1px solid #333;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-header {
+  height: 20px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 5px;
+}
+
+.mockup-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.mockup-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockup-bar {
+  width: 60%;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+}
+
+/* При наведении макет "оживает" */
+.project-card:hover .mockup-bar {
+  background: var(--accent);
+  width: 80%;
+  transition: all 0.4s;
+}
+
+.project-arrow {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  font-size: 2rem;
+  color: var(--text-muted);
+  transition: all 0.4s;
+  z-index: 2;
+}
+
+.project-card:hover .project-arrow {
+  color: var(--accent);
+  transform: translate(5px, -5px) rotate(45deg);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--text-muted);
+  border-top: 1px solid #2a2a30;
+  margin-top: 80px;
+}
+/* Стили для аватарки */
+.avatar-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+  display: block;
+  margin: 0 auto;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Секция с бесконечным кодом внизу */
+.infinite-code-section {
+  padding: 50px 0 100px;
+}
+
+@media (max-width: 900px) {
+  .avatar-img {
+    width: 200px;
+    height: 200px;
+    margin-top: 40px;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr; /* В одну колонку на телефонах */
+    text-align: center;
+  }
+  .socials { justify-content: center; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .hero__visual { display: none; } /* Скрываем код на мобилке, чтобы не мешал */
+}
+
+/* ---------- Боковой код на фоне ---------- */
+.side-code {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--accent);
+  opacity: 0.12; /* Еле заметный */
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  
+  /* Красивое затухание сверху и снизу */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+.left-code { left: 0; }
+.right-code { right: 0; text-align: right; }
+
+/* Разные скорости для левого и правого кода, чтобы было живее */
+.left-code pre {
+  animation: scrollCode 25s linear infinite;
+}
+
+.right-code pre {
+  animation: scrollCode 35s linear infinite reverse; /* Едет в другую сторону */
+}
+
+@keyframes scrollCode {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0%); }
+}
+
+@media (max-width: 1200px) {
+  .side-code { display: none; }
+}
+
+/* ---------- Анимация появления при скролле ---------- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Кастомный курсор ---------- */
+* {
+  cursor: none; /* Скрываем стандартный курсор */
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+  mix-blend-mode: difference; /* Крутой эффект инверсии при наведении */
+}
+
+.custom-cursor.hovering {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+/* Стили для реальной картинки проекта */
+.project-visual {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  border: 1px solid #333;
+  position: relative;
+  z-index: 2;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top; /* Показываем верхнюю часть скриншота */
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* При наведении на карточку картинка плавно приближается */
+.project-card:hover .project-img {
+  transform: scale(1.1);
+}
+
+/* Чтобы описание и заголовок стояли ровно */
+.project-info {
+  margin-top: auto; /* Прижимаем текст к низу карточки */
+}
+
+/* Чтобы на телефонах курсор не мешал */
+@media (max-width: 768px) {
+  * { cursor: auto; }
+  .custom-cursor { display: none; }
+}
+
+/* Наклон карточек */
+.project-card {
+  transform-style: preserve-3d;
+}
+
+/* Шум на фоне (текстура) */
+.app::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Полоска прогресса */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--accent);
+  z-index: 10000;
+  box-shadow: 0 0 10px var(--accent);
+  transition: width 0.1s ease-out;
+}
+
+/* Бейдж статуса */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+
+/* ---------- Блок Навыков ---------- */
+.skills-section {
+  padding: 80px 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  background: #111114; /* Очень темный фон */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Свечение на фоне карточки при наведении */
+.skill-card::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px; height: 100px;
+  background: var(--brand-color);
+  filter: blur(60px);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 0;
+}
+
+.skill-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--brand-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.skill-card:hover::before {
+  opacity: 0.15; /* Цветное пятно на фоне */
+}
+
+/* Иконка */
+.skill-icon-wrapper {
+  font-size: 3.5rem; /* Размер SVG иконки */
+  color: #555; /* Изначально серые */
+  transition: color 0.4s, transform 0.4s;
+  z-index: 1;
+}
+
+.skill-card:hover .skill-icon-wrapper {
+  color: var(--brand-color); /* При наведении красим в родной цвет */
+  transform: scale(1.1);
+}
+
+.skill-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+  z-index: 1;
+}
+
+.skill-card:hover .skill-name {
+  color: #fff; /* Текст становится белым */
+}
+
+/* ---------- Огромный Footer ---------- */
+.footer-cta {
+  padding: 120px 0 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 80px;
+}
+
+.footer-subtitle {
+  color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.footer-title {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 40px;
+}
+
+.footer-btn {
+  display: inline-block;
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 20px 40px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid #2a2a30;
+  transition: all 0.3s ease;
+}
+
+.footer-btn:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+}
+
+.footer-bottom {
+  margin-top: 100px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
