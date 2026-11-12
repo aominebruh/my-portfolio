@@ -9,7 +9,7 @@ function MagneticButton({ children, className, href, onClick }) {
     const { height, width, left, top } = ref.current.getBoundingClientRect()
     const middleX = clientX - (left + width / 2)
     const middleY = clientY - (top + height / 2)
-    // Притягиваем кнопку к курсору (делим на 3, чтобы движение было мягким)
+   
     setPosition({ x: middleX / 3, y: middleY / 3 })
   }
 

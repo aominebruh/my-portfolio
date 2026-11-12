@@ -7,7 +7,7 @@ function ScrollReveal({ children }) {
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        // Если блок на экране - показываем, если нет - скрываем
+        
         setIsVisible(entry.isIntersecting)
       })
     }, { threshold: 0.1 })

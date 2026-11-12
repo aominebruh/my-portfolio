@@ -1,12 +1,12 @@
 import { SiReact, SiJavascript, SiHtml5, SiFigma, SiGit, SiVite, SiTailwindcss } from 'react-icons/si'
-import { FaCss3Alt } from 'react-icons/fa' // <-- Взяли иконку CSS отсюда
+import { FaCss3Alt } from 'react-icons/fa' 
 
 function Skills() {
   const skills = [
     { name: 'React', icon: <SiReact />, color: '#61DAFB' },
     { name: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E' },
     { name: 'HTML5', icon: <SiHtml5 />, color: '#E34F26' },
-    { name: 'CSS3', icon: <FaCss3Alt />, color: '#1572B6' }, // <-- Используем FaCss3Alt
+    { name: 'CSS3', icon: <FaCss3Alt />, color: '#1572B6' }, 
     { name: 'Figma', icon: <SiFigma />, color: '#F24E1E' },
     { name: 'Git', icon: <SiGit />, color: '#F05032' },
     { name: 'Vite', icon: <SiVite />, color: '#646CFF' },

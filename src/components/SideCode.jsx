@@ -1,5 +1,5 @@
 function SideCode() {
-  // Код для левой стороны (React / JS)
+  
   const leftCode = `
 import React from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ function App() {
 export default App;
   `
 
-  // Код для правой стороны (CSS / Styles)
+  
   const rightCode = `
 .container {
   display: flex;

@@ -10,7 +10,7 @@ function CustomCursor() {
     }
 
     const handleMouseOver = (e) => {
-      // Если навели на кнопку или ссылку, увеличиваем курсор
+     
       if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
         setIsHovering(true)
       } else {
